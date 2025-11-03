@@ -1,0 +1,15 @@
+# Ignore backend environment files
+backend/.env
+
+# Ignore backend dependencies
+backend/node_modules/
+
+# Ignore OS or editor files
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log
+
+# Ignore any markdown or temporary project files
+Social-media-backend.md

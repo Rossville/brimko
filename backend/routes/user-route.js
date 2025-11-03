@@ -1,7 +1,8 @@
 const express = require('express');
 const isUserAuthenticated = require('../middleware/userAuthenticated.js');
 const {createUser, loginUser, findUser} = require('../controller/userController.js');
-const generateToken = require('../middleware/tokenVerification.js');
+const {generateToken, verifyToken} = require('../middleware/tokenVerification.js');
+const { createPost } = require('../controller/postController.js');
 const router = express.Router();
 
 router.use(express.json());
@@ -19,5 +20,6 @@ router.post('/login', loginUser, generateToken, function(req, res){
     }
 });
 router.get('/:id', findUser);
+router.post('/post/create', verifyToken, createPost);
 
 module.exports = router;

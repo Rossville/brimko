@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const User = require("../models/user.js");
-const generateToken = require("../middleware/tokenVerification.js");
 
 /**
  *  @desc save the user in the database
@@ -115,15 +114,15 @@ async function findUser(req, res) {
         msg: "User Id is not valid",
       });
     const userExists = await User.findById(id).select("-password"); //excludes password
-    if(!userExists)
+    if (!userExists)
       return res.status(404).json({
-        msg: "User not Found"
+        msg: "User not Found",
       });
     console.log(userExists._doc);
     return res.status(200).json({
       msg: "User found",
-      user: userExists._doc
-    })
+      user: userExists._doc,
+    });
   } catch (err) {
     console.log(err.stack);
     res.status(500).json({

@@ -13,6 +13,7 @@ async function generateToken(req, res, next) {
     const token = jwt.sign({ username, email }, process.env.JWT_SECRET, {
       expiresIn: 1000 * 60 * 60 * 24 * 7,
     }); // expiration : 1 week
+    req.token = token;
     console.log(token);
     next();
   } catch (err) {

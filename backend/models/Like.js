@@ -11,7 +11,7 @@ const LikeSchema = mongoose.Schema({
         enum: Object.values(TargetType_ENUM)
     },
     targetId: {
-        type: mongoose.Schema.Types.ObjectId(),
+        type: mongoose.Schema.Types.ObjectId,
         refPath: 'targetTypeRef'
     },
     targetTypeRef: {

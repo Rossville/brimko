@@ -5,15 +5,15 @@ const commentSchema = mongoose.Schema({
         type: Number,
     },
     postId: {
-        type: mongoose.Schema.Types.ObjectId(),
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
     },
     authorId: {
-        type: mongoose.Schema.Types.ObjectId(),
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
     parentCommentId: {
-        type: mongoose.Schema.Types.ObjectId(),
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment'
     }
 },{

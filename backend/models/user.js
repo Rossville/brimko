@@ -54,7 +54,7 @@ const userSchema = mongoose.Schema({
     privacy: {
         profileVisibility: {
             type: Boolean,
-            default: true
+            default: true // profileVisibility 'false' user has deactivated their account.
         },
         allowMessages: {
             type: Boolean,

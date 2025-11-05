@@ -16,7 +16,6 @@ async function createUser(req, res) {
       phoneNumber,
       countryCode,
       bio,
-      privacy,
     } = req.body;
 
     // check if the user exists
@@ -36,7 +35,6 @@ async function createUser(req, res) {
       phoneNumber,
       countryCode,
       bio,
-      privacy,
     });
     console.log("User created successfully ", newuser._id);
     res.status(201).json({
@@ -67,7 +65,7 @@ async function createUser(req, res) {
  * @desc login user
  * @route POST /user/login
  */
-async function loginUser(req, res, next) {
+async function loginUser(req, res) {
   try {
     const { email, password } = req.body;
     console.log(email, password);
@@ -85,7 +83,9 @@ async function loginUser(req, res, next) {
       // user found, generate JWT-token
       // and save it to user browser localStorage.
       console.log("User Found", userExists._id);
-      next();
+      res.status(200).json({
+        token: req.token
+      });
     } else
       res.status(401).json({
         msg: "Username/Email or Password didn't match",
@@ -131,8 +131,35 @@ async function findUser(req, res) {
   }
 }
 
+/**
+ * @desc returns all the user having the visibility 'true'
+ *  @route GET /user/people
+ */
+async function getAllUser(req, res) {
+  try {
+    //verify the jwt token.
+    const users = await User
+    .find({ "privacy.profileVisibility": true })
+    .select(
+      "-password -phoneNumber -createdAt -updatedAt"
+    );
+    console.log(users);
+    return res.status(200).json({
+      users,
+      totalUser: users.length,
+    });
+    // add pagination in this api
+  } catch (err) {
+    console.log(err.stack);
+    return res.status().json({
+      msg: "Internal Server Error",
+    });
+  }
+}
+
 module.exports = {
   createUser,
   loginUser,
   findUser,
+  getAllUser,
 };

@@ -1,4 +1,4 @@
-name: NodeJS with Grunt
+name: Build Frontend and Backend
 
 on:
   push:
@@ -9,20 +9,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x, 22.x]
-
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
+      # Frontend build
+      - name: Install frontend dependencies
+        run: npm install
+        working-directory: ./frontend
 
-    - name: Build
-      run: |
-        npm install
-        grunt
+      - name: Run Grunt for frontend
+        run: grunt
+        working-directory: ./frontend
+
+      # Backend setup (optional)
+      - name: Install backend dependencies
+        run: npm install
+        working-directory: ./backend

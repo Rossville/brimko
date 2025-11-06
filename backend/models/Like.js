@@ -10,6 +10,9 @@ const LikeSchema = mongoose.Schema({
         type: String,
         enum: Object.values(TargetType_ENUM)
     },
+    count: {
+        type: Number
+    },
     targetId: {
         type: mongoose.Schema.Types.ObjectId,
         refPath: 'targetTypeRef'
@@ -23,6 +26,9 @@ const LikeSchema = mongoose.Schema({
     strict: true
 });
 
-const like = mongoose.model('Like', LikeSchema);
+const Like = mongoose.model('Like', LikeSchema);
 
-module.exports = like;
+module.exports = {
+    Like, 
+    TargetType_ENUM
+};
